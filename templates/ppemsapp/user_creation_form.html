@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+
+<!--main content-->
+{% block content %}
+
+</h1>Userform</h1>
+
+
+<div class="col-md-6 m-auto p-2">
+    <form method="POST">
+
+        {% csrf_token %}
+        {{ form.as_p}}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+
+{% endblock content %}
+<!--main content-->
