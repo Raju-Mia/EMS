@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import Group, User
 
 class UserForm(forms.ModelForm):
-    password=forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control bg-light'}))
+    password=forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-field form-control bg-light'}))
     roll = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control bg-light'}), queryset=Group.objects.all())
 
     class Meta:
@@ -23,3 +23,9 @@ class UserForm(forms.ModelForm):
         }
     
     
+
+
+# userlogin form
+class UserLogin(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-field form-control', 'placeholder':'Inter your username..'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-field form-control bg-light', 'placeholder':'Inter your password..'}))
