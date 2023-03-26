@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import Group, User
+from. models import *
 
 class UserForm(forms.ModelForm):
     password=forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-field form-control bg-light'}))
@@ -29,3 +30,20 @@ class UserForm(forms.ModelForm):
 class UserLogin(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-field form-control', 'placeholder':'Inter your username..'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-field form-control bg-light', 'placeholder':'Inter your password..'}))
+
+
+
+
+# Daily TaskForm
+class DailyTaskForm(forms.ModelForm):
+    class Meta:
+        model = DailyTask
+
+        fields = '__all__'
+
+        exclude = ['date', 'user']
+
+        widgets = {
+            'title':forms.TextInput(attrs={'class':'form-control'}),
+            'discription':forms.Textarea(attrs={'class':'form-control'})
+        }
