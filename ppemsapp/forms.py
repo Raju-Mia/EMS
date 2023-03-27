@@ -47,3 +47,11 @@ class DailyTaskForm(forms.ModelForm):
             'title':forms.TextInput(attrs={'class':'form-control'}),
             'discription':forms.Textarea(attrs={'class':'form-control'})
         }
+
+
+#Leave
+class LeaveForm(forms.ModelForm):
+    class Meta:
+        model = Leave
+
+        fields = '__all__'

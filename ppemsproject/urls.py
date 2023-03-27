@@ -18,6 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ppemsapp/', include('ppemsapp.urls')), #HRM system (superuser/user)
+    path('', include('ppemsapp.urls')), #HRM system (superuser/user)
 
 ]

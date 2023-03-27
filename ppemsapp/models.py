@@ -13,3 +13,17 @@ class DailyTask(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+
+#leave 
+class Leave(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    cause_of_leave = models.TextField(blank=True, null=True)
+    from_date = models.DateField()
+    to_date = models.DateField()
+    status = models.BooleanField(default=False)
+    checked_in = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.user)
