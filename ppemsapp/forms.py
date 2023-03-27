@@ -53,5 +53,13 @@ class DailyTaskForm(forms.ModelForm):
 class LeaveForm(forms.ModelForm):
     class Meta:
         model = Leave
+        # exclude = ['user', 'status', 'checked_in']
 
-        fields = '__all__'
+        fields = ['cause_of_leave', 'from_date', 'to_date']
+
+        widgets = {
+            
+            'from_date':forms.DateInput(attrs={'type':'date', 'class':'form-control datepicker'}),
+            'to_date':forms.DateInput(attrs={'type':'date', 'class':'form-control datepicker'}),
+            'cause_of_leave':forms.Textarea(attrs={'class':'form-control'})
+        }

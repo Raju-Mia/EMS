@@ -67,9 +67,9 @@ def leave(request):
         form = LeaveForm(request.POST)
 
         if form.is_valid():
-            form =form.save(commit=False)
-            user = request.user
-            form.user = user
+            form =form.save(commit = False)
+
+            form.user = request.user
             form.save()
 
             return HttpResponse("leave apply success")
