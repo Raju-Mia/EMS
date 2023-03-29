@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<div class="col-md-6">
+    <table class="table table-striped">
+        {% if report_errormessage %}
+        {{ report_errormessage }}
+
+        {% else %}
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for my_application in my_application %}
+
+            
+            <tr 
+                {% if my_application.status == 1 %} class="btn-success"
+                {% elif my_application.status == 0 and my_application.checked_in == 0 %} class="btn-warning"
+                {% elif my_application.checked_in == 0 %} class="btn-light"
+                
+                {% else %} class="btn-danger"
+                {% endif %}
+
+
+            >
+                
+                <th scope="row">{{ my_application.id }}</th>
+                <td>{{ my_application.user }}</td>
+                <td>{{ my_application.cause_of_leave }}</td>
+                {% if my_application.status == 1 and my_application.checked_in == 1 %}
+                    <td>Accepted</td>
+                {% elif my_application.status == 0 and my_application.checked_in == 1 %}
+                    <td>Rejected</td>
+                {% elif my_application.status == 0 and my_application.checked_in == 0 %}
+                    <td>Pending</td>
+                {% else %}
+                {% endif %}
+                
+                
+                
+            </tr>
+
+            {% endfor %}
+
+            {% endif %}
+
+        </tbody>
+
+    </table>
+    </div>
+
+{% endblock %}

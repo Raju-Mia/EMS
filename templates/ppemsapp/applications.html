@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<table class="table table-striped">
+    {% if errormessage %}
+    {{ errormessage }}
+
+    {% else %}
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for data in applications %}
+        <tr>
+        <th scope="row">{{ data.id }}</th>
+        <td>{{ data.user }}</td>
+        <td>{{ data.from_date }}</td>
+        <td>{{ data.to_date }}</td>
+
+        <td>
+            <a href="{% url 'application-evaluation' 1 data.id %}"><button class="btn btn-success" type="submit">Accept</button></a> 
+            <a href="{% url 'application-evaluation' 0 data.id %}"><button class="btn btn-danger" type="submit">Reject</button></a>
+        </td>
+        </tr>
+        {% endfor %}
+
+        {% endif %}
+
+    </tbody>
+
+</table>
+{% endblock %}
