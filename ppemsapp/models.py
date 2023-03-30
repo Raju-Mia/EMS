@@ -27,3 +27,14 @@ class Leave(models.Model):
 
     def __str__(self):
         return str(self.user)
+    
+
+#To-Do List
+
+class TodoList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    what_to_do = models.TextField(blank=True,null=True)
+    when_to_do = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.user)
