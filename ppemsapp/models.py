@@ -33,8 +33,11 @@ class Leave(models.Model):
 
 class TodoList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    what_to_do = models.TextField(blank=True,null=True)
+    what_to_do = models.TextField(blank=True, null=True)
     when_to_do = models.DateField(blank=True, null=True)
+    pending_status = models.BooleanField(blank=True)
+    working_status = models.BooleanField(blank=False)
+    done_status = models.BooleanField(blank=False)
 
     def __str__(self):
         return str(self.user)

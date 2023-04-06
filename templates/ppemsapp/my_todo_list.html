@@ -1,0 +1,108 @@
+
+
+
+
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<div class="col-md-6">
+    {% if pending_todo_list %}
+    <table class="table table-striped">
+        
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Pending({{ pending_todo_list.count }})</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for pending_todo in pending_todo_list %}
+
+            
+            <tr>
+                
+                <th scope="row">{{ pending_todo.id }}</th>
+                <td>{{ pending_todo.what_to_do }}</td>
+                
+            </tr>
+
+            {% endfor %}
+
+            
+
+        </tbody>
+    
+    </table>
+    {% endif %}
+</div>
+
+<br>
+
+<div class="col-md-6">
+    {% if working_status_list %}
+    <table class="table table-striped">
+        
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Pending({{ working_status_list.count }})</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for working_status in working_status_list %}
+
+            
+            <tr>
+                
+                <th scope="row">{{ working_status.id }}</th>
+                <td>{{ working_status.what_to_do }}</td>
+                
+            </tr>
+
+            {% endfor %}
+
+            
+
+        </tbody>
+    
+    </table>
+    {% endif %}
+</div>
+
+<br>
+<div class="col-md-6">
+    {% if done_status_list %}
+    <table class="table table-striped">
+        
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Pending({{ done_status_list.count }})</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for done_status in done_status_list %}
+
+            
+            <tr>
+                
+                <th scope="row">{{ done_status.id }}</th>
+                <td>{{ done_status.what_to_do }}</td>
+                
+            </tr>
+
+            {% endfor %}
+
+            
+
+        </tbody>
+    
+    </table>
+    {% endif %}
+</div>
+
+{% endblock %}

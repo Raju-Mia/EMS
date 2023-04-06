@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 
 from django.contrib.auth import authenticate, login
 
@@ -94,8 +94,8 @@ def applications(request):
             context = {'errormessage': errormessage}
             return render(request, 'ppemsapp/applications.html', context)
         
-    except:
-        pass
+    except Exception:
+        return redirect("login")
 
 
 # leave appliation status and checked_in aprove.
@@ -123,4 +123,13 @@ def my_leave_report(request):
             return render(request, 'ppemsapp/my_applications.html', context)
 
     except:
-        pass
+        return redirect("login")
+
+
+def my_todo_list(request):
+    user = request.user
+    pending_todo_list= TodoList.objects.filter(user=user, pending_status=True)
+    working_status_list= TodoList.objects.filter(user=user, working_status=True)
+    done_status_list= TodoList.objects.filter(user=user, done_status=True)
+    context = {'pending_todo_list':pending_todo_list, 'working_status_list':working_status_list, 'done_status_list':done_status_list }
+    return render(request, 'ppemsapp/my_todo_list.html', context)
