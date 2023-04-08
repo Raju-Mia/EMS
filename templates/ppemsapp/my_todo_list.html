@@ -6,6 +6,24 @@
 
 {% block content %}
 
+<div>
+<form action ="{% url 'add_todo_list' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="exampleInputEmail1">Todo List Name</label>
+      <input type="text" name ="what_todo" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="date" name ="when_todo" class="form-control" id="exampleInputPassword1" placeholder="date">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div>
+<br>
+
+
 <div class="col-md-6">
     {% if pending_todo_list %}
     <table class="table table-striped">
@@ -14,6 +32,7 @@
             <tr>
             <th scope="col">ID</th>
             <th scope="col">Pending({{ pending_todo_list.count }})</th>
+            <th scope="col">Action</th>
             </tr>
         </thead>
 
@@ -25,6 +44,8 @@
                 
                 <th scope="row">{{ pending_todo.id }}</th>
                 <td>{{ pending_todo.what_to_do }}</td>
+                <td><a href="{% url 'action_todo_list' pending_todo.id 'working' %}"><button type="button" class="btn btn-info">Working</button></td>
+                <td><a href ="{% url 'action_todo_list' pending_todo.id 'done' %}"><button type="button" class="btn btn-success">Done</button></td>
                 
             </tr>
 
@@ -47,7 +68,8 @@
         <thead>
             <tr>
             <th scope="col">ID</th>
-            <th scope="col">Pending({{ working_status_list.count }})</th>
+            <th scope="col">Wroking({{ working_status_list.count }})</th>
+            <th scope="col">Action</th>
             </tr>
         </thead>
 
@@ -59,6 +81,8 @@
                 
                 <th scope="row">{{ working_status.id }}</th>
                 <td>{{ working_status.what_to_do }}</td>
+                
+                <td><a href ="{% url 'action_todo_list' working_status.id 'done' %}"><button type="button" class="btn btn-success">Done</button></td>
                 
             </tr>
 
@@ -80,7 +104,7 @@
         <thead>
             <tr>
             <th scope="col">ID</th>
-            <th scope="col">Pending({{ done_status_list.count }})</th>
+            <th scope="col">Done({{ done_status_list.count }})</th>
             </tr>
         </thead>
 
@@ -92,6 +116,7 @@
                 
                 <th scope="row">{{ done_status.id }}</th>
                 <td>{{ done_status.what_to_do }}</td>
+
                 
             </tr>
 

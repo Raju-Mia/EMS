@@ -13,4 +13,6 @@ urlpatterns = [
     path('application_evaluation/<status>/<id>/', application_evaluation, name='application-evaluation'),
     path('my_application/', my_leave_report, name='my-leave-report'),
     path('todo-list/', my_todo_list, name='my_todo_list'),
+    path('action-todo-list/<id>/<status>', action_todo_list, name="action_todo_list"),
+    path('add-todo-list/', add_todo_list, name="add_todo_list"),
 ]

@@ -133,3 +133,30 @@ def my_todo_list(request):
     done_status_list= TodoList.objects.filter(user=user, done_status=True)
     context = {'pending_todo_list':pending_todo_list, 'working_status_list':working_status_list, 'done_status_list':done_status_list }
     return render(request, 'ppemsapp/my_todo_list.html', context)
+
+def action_todo_list(request,id,status):
+    todo_list = TodoList.objects.get(id=id)
+    if status == 'done':
+        todo_list.pending_status = False
+        todo_list.working_status = False
+        todo_list.done_status = True
+        todo_list.save()
+        return redirect('my_todo_list')
+
+    elif status == 'working':
+        todo_list.working_status = True
+        todo_list.pending_status = False
+        todo_list.done_status = False
+        todo_list.save()
+        return redirect('my_todo_list')
+    else:
+        pass
+
+def add_todo_list(request):
+    if request.method == 'POST':
+        what_todo = request.POST['what_todo']
+        when_todo = request.POST['when_todo']
+        create_todo_list = TodoList.objects.create(user = request.user, what_to_do=what_todo, when_to_do=when_todo)
+        return redirect('my_todo_list')
+    else:
+        pass
