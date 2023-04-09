@@ -160,3 +160,18 @@ def add_todo_list(request):
         return redirect('my_todo_list')
     else:
         pass
+
+
+# user profile
+def profile(request):
+    try:
+        user = request.user
+        print(user)
+        if user:
+            profile = Profile.objects.get(user=user)
+            context ={'profile':profile}
+            return render(request, 'ppemsapp/profile.html', context)
+    except:
+        messages = "user is not login"
+        context = {'messages':messages}
+        return render(request, 'ppemsapp/profile.html', context)

@@ -41,3 +41,12 @@ class TodoList(models.Model):
 
     def __str__(self):
         return str(self.user)
+    
+
+#my profile
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    department = models.CharField(max_length=50, blank=True, null=True)
+    profile_image = models.ImageField(blank=True, null=True)
+
+    

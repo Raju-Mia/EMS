@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %} {% block content %} {% if profile %}
+<div class="card" style="width: 18rem">
+  <img
+    class="card-img-top"
+    src="{{ profile.profile_image.url }}"
+    alt="Card image cap"
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{ profile.user.username }}</h5>
+    <p class="card-text">{{ profile.department }}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+{% else %} {{messages}} {% endif %} {% endblock content %}
