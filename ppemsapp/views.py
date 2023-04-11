@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 
 from .forms import *
 
@@ -10,7 +12,7 @@ from .forms import *
 def home(request):
     return render(request, 'base/base.html')
 
-
+@login_required(login_url='/login')
 def add_employee(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -35,15 +37,21 @@ def user_login(request):
         print("data not vaild")
         if user:
             login(request, user)
-            return HttpResponse("Loged In")
+            return redirect('home')
     
     form = UserLogin()
     context ={ 'form':form }
     return render(request, 'ppemsapp/login.html', context)
 
+#user logout
+@login_required(login_url='/login')
+def user_logout(request):
+    logout(request)
+    return redirect('/login')
 
 
 # add daily report
+@login_required(login_url='/login')
 def add_daily_report(request):
 
     if request.method == 'POST':
@@ -62,6 +70,7 @@ def add_daily_report(request):
 
 
 # Leave application
+@login_required(login_url='/login')
 def leave(request):
 
     if request.method == 'POST':
@@ -82,6 +91,7 @@ def leave(request):
 
 
 # leave application query
+@login_required(login_url='/login')
 def applications(request):
     try:
         applications = Leave.objects.filter(checked_in=False)
@@ -99,6 +109,7 @@ def applications(request):
 
 
 # leave appliation status and checked_in aprove.
+@login_required(login_url='/login')
 def application_evaluation(request, status, id):
     application = Leave.objects.get(id=id)
     application.status = status
@@ -109,6 +120,7 @@ def application_evaluation(request, status, id):
 
 
 # Leave application report for every users
+@login_required(login_url='/login')
 def my_leave_report(request):
     try:
         
@@ -125,7 +137,8 @@ def my_leave_report(request):
     except:
         return redirect("login")
 
-
+# My Todo List
+@login_required(login_url='/login')
 def my_todo_list(request):
     user = request.user
     pending_todo_list= TodoList.objects.filter(user=user, pending_status=True)
@@ -134,6 +147,8 @@ def my_todo_list(request):
     context = {'pending_todo_list':pending_todo_list, 'working_status_list':working_status_list, 'done_status_list':done_status_list }
     return render(request, 'ppemsapp/my_todo_list.html', context)
 
+# Action about Toto List Activites
+@login_required(login_url='/login')
 def action_todo_list(request,id,status):
     todo_list = TodoList.objects.get(id=id)
     if status == 'done':
@@ -152,7 +167,10 @@ def action_todo_list(request,id,status):
     else:
         pass
 
+# Create lodo list
+@login_required(login_url='/login')
 def add_todo_list(request):
+
     if request.method == 'POST':
         what_todo = request.POST['what_todo']
         when_todo = request.POST['when_todo']
@@ -163,6 +181,7 @@ def add_todo_list(request):
 
 
 # user profile
+@login_required(login_url='/login')
 def profile(request):
     try:
         user = request.user
